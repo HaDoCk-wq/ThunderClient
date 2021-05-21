@@ -8,15 +8,17 @@
       <router-view />
     </div>
   </main>
+
   <ButtonOpenNav />
 </template>
 
 <script>
-import main from "./views/main";
-import login from "./views/login";
+import MenuNav from "./components/menuNav/menuNav.vue";
+import SideNav from "./components/sideNav/sideNav.vue";
+import ButtonOpenNav from "./components/buttonOpenNav/ButtonOpenNav";
 
 export default {
-  components: { main },
+  components: { MenuNav, ButtonOpenNav, SideNav },
   computed: {
     navbarOpened() {
       return this.$store.getters["navbarState"];

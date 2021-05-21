@@ -13,7 +13,7 @@
             alt="Profile image"
             class="rounded-circle me-2  "
           />
-          <div>
+          <div class="text-break" style="white-space: pre-wrap;">
             <p class="mb-1">
               <strong> Anrau Costa </strong>
             </p>
@@ -32,6 +32,7 @@
           v-model="message"
           type="text"
           class="me-2 flex-fill input-mesage"
+          maxlength="1000"
         />
         <button type="submit" class="btn btn-primary">
           envia

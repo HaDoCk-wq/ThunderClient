@@ -7,6 +7,7 @@ import socketio from 'socket.io-client';
 import "./registerServiceWorker";
 import "./assets/scss/custom.scss";
 import "./assets/css/App.css";
+import './registerServiceWorker'
 
 
 // const SocketInstance = socketio.connect('http://localhost:3000', {
