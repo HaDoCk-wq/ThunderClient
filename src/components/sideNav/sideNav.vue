@@ -5,7 +5,7 @@
             <SideCalls v-if="$store.getters.navigation == 'calls'" />
             <SideChat v-if="$store.getters.navigation == 'chat'" />
             <SideGroups v-if="$store.getters.navigation == 'groups'" />
-            <SideSearch v-if="$store.getters.navigation == 'search'" />
+            <SideFriends v-if="$store.getters.navigation == 'friends'" />
         </div>
         <div class="user-info p-2 position-absolute bottom-0">
             <div class="row">
@@ -74,10 +74,10 @@ import SideAdd from "./sideAdd";
 import SideCalls from "./sideCalls";
 import SideChat from "./sideChat";
 import SideGroups from "./sideGroups";
-import SideSearch from "./sideSearch";
+import SideFriends from "./sideFriends";
 
 export default {
-    components: { SideAdd, SideCalls, SideChat, SideGroups, SideSearch },
+    components: { SideAdd, SideCalls, SideChat, SideGroups, SideFriends },
 
     data: function () {
         return {

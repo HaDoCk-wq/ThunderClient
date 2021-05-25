@@ -1,25 +1,25 @@
 <template>
     <nav class="menu-nav flex-wrap">
         <div
-            class="menu-nav-item pb-2 pt-3"
+            class="menu-nav-item pb-2 pt-2"
             v-bind:class="[
-                $store.getters.navigation == 'search' ? 'selected' : '',
+                $store.getters.navigation == 'friends' ? 'selected' : '',
             ]"
-            @click="$store.commit('navigateTo', 'search')"
+            @click="$store.commit('navigateTo', 'friends')"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="26"
-                height="26"
+                width="34"
+                height="34"
                 fill="currentColor"
-                class="bi bi-search w-100"
+                class="bi bi-person-fill w-100"
                 viewBox="0 0 16 16"
             >
                 <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                    d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
                 />
             </svg>
-            <div class="w-100 mt-1 text-center">Search</div>
+            <div class="w-100 mt-1 text-center">Friends</div>
         </div>
         <div
             class="menu-nav-item pb-2 pt-3"

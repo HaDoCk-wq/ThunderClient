@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import VueSocketIO from 'vue-socket.io';
 import socketio from 'socket.io-client';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import "./registerServiceWorker";
 import "./assets/scss/custom.scss";
 import "./assets/css/App.css";
@@ -23,13 +25,15 @@ createApp(App)
   .use(store)
   .use(new VueSocketIO({
     debug: true,
-    connection: socketio('http://192.168.172.179:3000'), //options object is Optional
+    connection: socketio('http://192.168.1.201:3000'), //options object is Optional
     vuex: {
       store,
       actionPrefix: "SOCKET_",
       mutationPrefix: "SOCKET_"
     }
-  })
-  )
+  }))
+  .use(VueAxios, axios)
   .use(router)
   .mount("#app");
+
+

@@ -1,4 +1,4 @@
-$border-radius: 0;
+$border-radius: 0px;
 $btn-border-radius: 4px;
 $input-btn-focus-box-shadow: none;
 $input-btn-focus-width: 0;
@@ -27,12 +27,16 @@ $mid-dark-bg: #24282e;
 $light-dark-bg: #282c34;
 $light-bg: #2c313a;
 
+$form-file-button-bg: $light-dark-bg;
+$form-file-button-color: $light;
+
 :root {
   --dark-bg: #{$dark-bg};
   --mid-dark-bg: #{$mid-dark-bg};
   --light-dark-bg: #{$light-dark-bg};
   --light-bg: #{$light-bg};
   --color-white: white;
+  --border-radius: 10px;
   font-family: var(
     --pure-material-font,
     "Roboto",
@@ -49,7 +53,7 @@ $light-bg: #2c313a;
   display: inline-block;
   box-sizing: border-box;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   padding: 0 16px;
   min-width: 64px;
   height: 36px;
@@ -57,7 +61,7 @@ $light-bg: #2c313a;
   text-align: center;
   text-overflow: ellipsis;
   text-transform: uppercase;
-  color: #272727 !important;
+  color: var(--light-bg) !important;
   background-color: $blue, 33, 150, 243;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);

@@ -6,7 +6,7 @@
 export default {
     name: "SideChat",
     mounted() {
-        this.$router.push("/chat");
+        this.$router.push("/channels/chat");
     },
 };
 </script>
