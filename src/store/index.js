@@ -5,7 +5,10 @@ export default createStore({
     navbarOpen: false,
     navigationSelected: "chat",
     lastChatId: "",
-    mainApiUrl: "http://localhost:3000"
+    mainApiUrl: "http://localhost:3000",
+    user: {
+      image: "default.png"
+    }
   },
   getters: {
     navbarState: (state) => {
@@ -20,16 +23,25 @@ export default createStore({
     api: (state) => {
       return state.mainApiUrl;
     },
+    user: (state) => {
+      return state.user;
+    },
   },
   mutations: {
     navbarToggle(state) {
       state.navbarOpen = !state.navbarOpen;
+    },
+    setNavbar(state, navState) {
+      state.navbarOpen = navState;
     },
     navigateTo(state, nav) {
       state.navigationSelected = nav;
     },
     setChatId(state, newChatId) {
       state.lastChatId = newChatId;
+    },
+    setUser(state, user) {
+      state.user = user;
     },
   },
   actions: {},
