@@ -2,8 +2,10 @@ module.exports = {
   pwa: {
     workboxOptions: {
       skipWaiting: true,
-      clientsClaim: true,
-    }
+      clientsClaim: true
+    },
+    name: 'Thunder',
+    themeColor: '#61dafb'
   },
   pluginOptions: {
     electronBuilder: {
@@ -11,5 +13,8 @@ module.exports = {
 
       }
     }
-  }
+  },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/client/'
+    : '/'
 }
