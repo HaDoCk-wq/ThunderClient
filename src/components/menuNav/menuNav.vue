@@ -3,7 +3,10 @@
     <div
       class="menu-nav-item pb-2 pt-2"
       v-bind:class="[$store.getters.navigation == 'friends' ? 'selected' : '']"
-      @click="$store.commit('navigateTo', 'friends')"
+      @click="
+        $store.commit('navigateTo', 'friends');
+        $router.push('/channels/friends');
+      "
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +25,10 @@
     <div
       class="menu-nav-item pb-2 pt-3"
       v-bind:class="[$store.getters.navigation == 'chat' ? 'selected' : '']"
-      @click="$store.commit('navigateTo', 'chat')"
+      @click="
+        $store.commit('navigateTo', 'chat');
+        $router.push('/channels/chat/' + $store.getters['lastChatId']);
+      "
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -62,6 +68,7 @@
       </svg>
       <div class="w-100 mt-1 text-center">Groups</div>
     </div>
+    <!--
     <div
       class="menu-nav-item pb-2 pt-3"
       v-bind:class="[$store.getters.navigation == 'calls' ? 'selected' : '']"
@@ -82,6 +89,7 @@
       </svg>
       <div class="w-100 mt-1 text-center">Calls</div>
     </div>
+    -->
     <div
       class="menu-nav-item pb-2 pt-3"
       v-bind:class="[$store.getters.navigation == 'add' ? 'selected' : '']"

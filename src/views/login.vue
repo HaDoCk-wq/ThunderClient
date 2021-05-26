@@ -81,7 +81,7 @@ export default {
             console.log(response.data.user);
 
             this.$store.commit("setUser", response.data.user);
-            this.$router.push("/channels/chat");
+            this.$router.push("/channels/chat/main");
           } else {
             this.error = true;
             this.errorString = response.data.errorString;

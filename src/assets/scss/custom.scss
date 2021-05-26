@@ -26,6 +26,7 @@ $dark-bg: #20232a;
 $mid-dark-bg: #24282e;
 $light-dark-bg: #282c34;
 $light-bg: #2c313a;
+$selected-bg: #333c4d;
 
 $form-file-button-bg: $light-dark-bg;
 $form-file-button-color: $light;
@@ -35,6 +36,7 @@ $form-file-button-color: $light;
   --mid-dark-bg: #{$mid-dark-bg};
   --light-dark-bg: #{$light-dark-bg};
   --light-bg: #{$light-bg};
+  --selected-bg: #{$selected-bg};
   --color-white: white;
   --border-radius: 10px;
   font-family: var(

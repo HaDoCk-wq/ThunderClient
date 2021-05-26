@@ -6,8 +6,8 @@ export default createStore({
   state: {
     navbarOpen: false,
     navigationSelected: "chat",
-    lastChatId: "",
-    mainApiUrl: "http://192.168.1.201:3000",
+    lastChatId: "main",
+    mainApiUrl: "http://localhost:3000",
     user: {
       image: "default.png"
     }

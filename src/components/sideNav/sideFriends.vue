@@ -3,21 +3,26 @@
     <!-- class="h-100" style="overflow: auto; position: absolute !important;" -->
     <br />
     <h1 class="ms-3">Friends</h1>
+    <p class="ms-3 text-muted">Select one to go chat with them</p>
     <div
-      v-for="(user, i) in $store.getters['user'].friends"
+      v-for="(channel, i) in $store.getters['user'].channels"
       v-bind:key="i"
-      class="user-card w-100 p-2 pb-0 d-flex h-100"
+      class="user-card p-2 pb-0 d-flex h-100"
+      @click="
+        $router.push('/channels/chat/' + channel._id);
+        $store.commit('setChatId', channel._id);
+      "
     >
       <img
-        :src="$store.getters['api'] + '/profiles/' + user.image"
+        :src="$store.getters['api'] + '/profiles/' + channel.user.image"
         height="60"
         width="60"
         alt="User image"
         class="me-2"
       />
       <div class="pt-1">
-        <strong> {{ user.name }} </strong>
-        <p>{{ user.desc }}</p>
+        <strong> {{ channel.user.name }} </strong>
+        <p>{{ channel.user.desc }}</p>
       </div>
     </div>
   </div>
@@ -27,13 +32,24 @@
 export default {
   name: "SideSearch",
   mounted() {
-    this.$router.push("/channels/friends");
+    //this.$router.push("/channels/friends");
+    this.$store.commit("refreshUser");
   },
 };
 </script>
 
 <style scoped>
 .user-card {
-  border-bottom: 1px solid var(--mid-dark-bg);
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.user-card:hover {
+  background-color: var(--light-bg);
+}
+
+.user-card.selected {
+  background-color: var(--light-bg);
 }
 </style>
