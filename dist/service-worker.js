@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dist/precache-manifest.358140cbded368e9c6ac74abe5406084.js"
+  "/ThunderClient/dist/precache-manifest.009e073d1a16feabe3ee4ad477c4d4f4.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "client"});
+workbox.core.setCacheNameDetails({prefix: "thunder"});
 
 workbox.core.skipWaiting();
 
