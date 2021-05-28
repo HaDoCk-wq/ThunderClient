@@ -9,10 +9,13 @@ export default createStore({
     lastChatId: "main",
     chattingUser: {},
     mainApiUrl: "http://localhost:3000",
+    peerport: "3010",
     user: {
       image: "default.png"
     },
-    friendsPetitons: []
+    friendsPetitons: [],
+    inCall: true,
+    micMuted: false
   },
   getters: {
     navbarState: (state) => {
@@ -27,6 +30,9 @@ export default createStore({
     api: (state) => {
       return state.mainApiUrl;
     },
+    peerport: (state) => {
+      return state.peerport;
+    },
     user: (state) => {
       return state.user;
     },
@@ -36,7 +42,12 @@ export default createStore({
     friendsPetitons: (state) => {
       return state.friendsPetitons;
     },
-
+    inCall: (state) => {
+      return state.inCall;
+    },
+    micMuted: (state) => {
+      return state.micMuted;
+    },
   },
   mutations: {
     navbarToggle(state) {
@@ -54,8 +65,14 @@ export default createStore({
     setUser(state, user) {
       state.user = user;
     },
+    setCall(state, boolean) {
+      state.inCall = boolean;
+    },
     setChattingUser(state, user) {
       state.chattingUser = user;
+    },
+    toggleMicMuted(state) {
+      state.micMuted = !state.micMuted;
     },
     refreshUser(state) {
       console.log("refresh user")
@@ -93,7 +110,6 @@ export default createStore({
             });
 
         });
-
     }
   },
   actions: {},

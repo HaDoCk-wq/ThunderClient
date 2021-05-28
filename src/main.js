@@ -6,6 +6,8 @@ import VueSocketIO from 'vue-socket.io';
 import socketio from 'socket.io-client';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// import VuePeerJS from 'vue-peerjs';
+// import Peer from 'peerjs';
 import "./registerServiceWorker";
 import "./assets/scss/custom.scss";
 import "./assets/css/App.css";
@@ -33,6 +35,10 @@ createApp(App)
     }
   }))
   .use(VueAxios, axios)
+  // .use(VuePeerJS, new Peer(undefined, {
+  //   host: "/",
+  //   port: 3010,
+  // }))
   .use(router)
   .mount("#app");
 
