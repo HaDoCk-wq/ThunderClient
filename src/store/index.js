@@ -7,10 +7,12 @@ export default createStore({
     navbarOpen: false,
     navigationSelected: "chat",
     lastChatId: "main",
+    chattingUser: {},
     mainApiUrl: "http://localhost:3000",
     user: {
       image: "default.png"
-    }
+    },
+    friendsPetitons: []
   },
   getters: {
     navbarState: (state) => {
@@ -28,6 +30,13 @@ export default createStore({
     user: (state) => {
       return state.user;
     },
+    ChattingUser: (state) => {
+      return state.chattingUser;
+    },
+    friendsPetitons: (state) => {
+      return state.friendsPetitons;
+    },
+
   },
   mutations: {
     navbarToggle(state) {
@@ -45,7 +54,11 @@ export default createStore({
     setUser(state, user) {
       state.user = user;
     },
+    setChattingUser(state, user) {
+      state.chattingUser = user;
+    },
     refreshUser(state) {
+      console.log("refresh user")
       axios
         .post(
           state.mainApiUrl + "/user/getUser",
@@ -62,7 +75,25 @@ export default createStore({
         .catch(function (error) {
           console.error(error);
         })
-        .then(() => { });
+        .then(() => {
+
+          axios
+            .get(state.mainApiUrl + "/FriendRequest/", {
+              headers: {
+                Authorization: `Bearer ${window.localStorage.token}`,
+              },
+            })
+            .then((response) => {
+              state.friendsPetitons = response.data.FriendRequest;
+            })
+            .catch(function (error) {
+              console.error(error);
+            })
+            .then(() => {
+            });
+
+        });
+
     }
   },
   actions: {},

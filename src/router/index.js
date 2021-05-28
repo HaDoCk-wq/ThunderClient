@@ -19,7 +19,8 @@ const routes = [
           import("../views/friends.vue"),
       }
     ],
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    redirect: '/channels/chat/main'
   },
   {
     path: "/login",
@@ -27,7 +28,6 @@ const routes = [
     component: () =>
       import("../views/login.vue"),
     meta: { requiresAuth: false }
-
   },
   {
     path: "/register",
@@ -35,7 +35,6 @@ const routes = [
     component: () =>
       import("../views/register.vue"),
     meta: { requiresAuth: false }
-
   },
 ];
 

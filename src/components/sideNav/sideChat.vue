@@ -1,17 +1,16 @@
 <template>
   <div>
     <br />
-    <h1 class="ms-3">
-      Chat
-    </h1>
+    <h1 class="ms-3">Chat</h1>
     <div
       v-for="(channel, i) in $store.getters['user'].channels"
       v-bind:key="i"
       class="user-card p-2 pb-0 d-flex h-100"
-      :class="$store.getters['lastChatId'] == channel._id ? 'selected' : ''"
+      :class="$store.getters['lastChatId'] == channel.channel ? 'selected' : ''"
       @click="
-        $router.push('/channels/chat/' + channel._id);
-        $store.commit('setChatId', channel._id);
+        $store.commit('setNavbar', false);
+        $router.push('/channels/chat/' + channel.channel);
+        $store.commit('setChatId', channel.channel);
       "
     >
       <img
@@ -19,7 +18,7 @@
         height="60"
         width="60"
         alt="User image"
-        class="me-2"
+        class="me-2 rounded-circle"
       />
       <div class="pt-1">
         <strong> {{ channel.user.name }} </strong>
@@ -34,7 +33,9 @@ export default {
   name: "SideChat",
   mounted() {
     //this.$router.push("/channels/chat");
-    this.$store.commit("refreshUser");
+    console.log("avans 1");
+    //this.$store.commit("refreshUser");
+    console.log("despres 1");
   },
 };
 </script>

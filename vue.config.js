@@ -5,7 +5,8 @@ module.exports = {
       clientsClaim: true
     },
     name: 'Thunder',
-    themeColor: '#61dafb'
+    themeColor: '#20232a',
+    msTileColor: '#FAFAFA'
   },
   pluginOptions: {
     electronBuilder: {

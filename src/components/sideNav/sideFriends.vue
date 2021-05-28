@@ -9,8 +9,10 @@
       v-bind:key="i"
       class="user-card p-2 pb-0 d-flex h-100"
       @click="
-        $router.push('/channels/chat/' + channel._id);
-        $store.commit('setChatId', channel._id);
+        $store.commit('setNavbar', false);
+
+        $router.push('/channels/chat/' + channel.channel);
+        $store.commit('setChatId', channel.channel);
       "
     >
       <img
@@ -18,7 +20,7 @@
         height="60"
         width="60"
         alt="User image"
-        class="me-2"
+        class="me-2 rounded-circle"
       />
       <div class="pt-1">
         <strong> {{ channel.user.name }} </strong>
@@ -33,7 +35,7 @@ export default {
   name: "SideSearch",
   mounted() {
     //this.$router.push("/channels/friends");
-    this.$store.commit("refreshUser");
+    //this.$store.commit("refreshUser");
   },
 };
 </script>

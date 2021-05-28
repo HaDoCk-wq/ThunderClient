@@ -102,7 +102,9 @@ export default {
                 .catch(function (error) {
                     console.error(error);
                 })
-                .then(() => {});
+                .then(() => {
+                    this.$store.commit("refreshUser");
+                });
         },
         acceptFriendRequest(friendRequest, iterador) {
             this.friendRequests.splice(iterador, 1);
