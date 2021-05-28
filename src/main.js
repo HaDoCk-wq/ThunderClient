@@ -27,7 +27,7 @@ createApp(App)
   .use(store)
   .use(new VueSocketIO({
     debug: true,
-    connection: socketio('http://localhost:3000'), //options object is Optional
+    connection: socketio('http://192.168.172.179:3000'), //options object is Optional
     vuex: {
       store,
       actionPrefix: "SOCKET_",
@@ -36,8 +36,8 @@ createApp(App)
   }))
   .use(VueAxios, axios)
   // .use(VuePeerJS, new Peer(undefined, {
-  //   host: "/",
-  //   port: 3010,
+  //   host: "192.168.172.179",
+  //   port: "3010",
   // }))
   .use(router)
   .mount("#app");

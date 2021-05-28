@@ -8,8 +8,11 @@ export default createStore({
     navigationSelected: "chat",
     lastChatId: "main",
     chattingUser: {},
-    mainApiUrl: "http://localhost:3000",
-    peerport: "3010",
+    mainApiUrl: "http://192.168.172.179:3000",
+    peerObject: {
+      host: "192.168.172.179",
+      port: "3010",
+    },
     user: {
       image: "default.png"
     },
@@ -30,8 +33,8 @@ export default createStore({
     api: (state) => {
       return state.mainApiUrl;
     },
-    peerport: (state) => {
-      return state.peerport;
+    peerObject: (state) => {
+      return state.peerObject;
     },
     user: (state) => {
       return state.user;
