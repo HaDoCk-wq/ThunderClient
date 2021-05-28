@@ -377,54 +377,7 @@ export default {
             this.typing++;
             setTimeout(() => this.typing--, 500);
         },
-        peer() {
-            navigator.mediaDevices
-                .getUserMedia({
-                    video: true,
-                    //audio: true,
-                })
-                .then((stream) => {
-                    this.streams.push(stream);
-                    this.newStream = stream;
-
-                    var peer = new Peer(
-                        undefined,
-                        this.$store.getters["peerObject"]
-                    );
-
-                    console.log("Peer:", peer, this.$peer);
-
-                    peer.on("call", (call) => {
-                        console.log("stream");
-                        call.answer(stream);
-                        call.on("stream", (userVideoStream) => {
-                            console.log("stream");
-                            this.streams.push(userVideoStream);
-                        });
-                    });
-
-                    this.sockets.subscribe("user-conected", (userId) => {
-                        console.log(userId);
-
-                        const call = peer.call(userId, stream);
-                        peer.call(userId, stream).on(
-                            "stream",
-                            (userVideoStream) => {
-                                console.log("stream");
-                                this.streams.push(userVideoStream);
-                                console.log("moooolt stream");
-                            }
-                        );
-
-                        this.peers[userId] = call;
-                    });
-
-                    peer.on("open", (id) => {
-                        console.log("open peer");
-                        this.$socket.emit("join-call", "call", id); //  + this.chatId
-                    });
-                });
-        },
+        peer() {},
     },
     mounted() {
         this.peer();
@@ -436,6 +389,53 @@ export default {
 
         this.$socket.emit("join-room", "write" + this.chatId);
         this.$socket.emit("listen-writing", "write" + this.chatId);
+
+        navigator.mediaDevices
+            .getUserMedia({
+                video: true,
+                //audio: true,
+            })
+            .then((stream) => {
+                this.streams.push(stream);
+                this.newStream = stream;
+
+                var peer = new Peer(
+                    undefined,
+                    this.$store.getters["peerObject"]
+                );
+
+                console.log("Peer:", peer, this.$peer);
+
+                peer.on("call", (call) => {
+                    console.log("stream");
+                    call.answer(stream);
+                    call.on("stream", (userVideoStream) => {
+                        console.log("stream");
+                        this.streams.push(userVideoStream);
+                    });
+                });
+
+                this.sockets.subscribe("user-conected", (userId) => {
+                    console.log(userId);
+
+                    const call = peer.call(userId, stream);
+                    peer.call(userId, stream).on(
+                        "stream",
+                        (userVideoStream) => {
+                            console.log("stream");
+                            this.streams.push(userVideoStream);
+                            console.log("moooolt stream");
+                        }
+                    );
+
+                    this.peers[userId] = call;
+                });
+
+                peer.on("open", (id) => {
+                    console.log("open peer");
+                    this.$socket.emit("join-call", "call", id); //  + this.chatId
+                });
+            });
     },
     updated() {
         if (this.chatId != "main") {
