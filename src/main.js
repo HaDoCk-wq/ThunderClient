@@ -23,23 +23,52 @@ import './registerServiceWorker'
 
 //const options = { path: '/' }; //Options object to pass into SocketIO
 
-createApp(App)
-  .use(store)
-  .use(new VueSocketIO({
-    debug: true,
-    connection: socketio('http://192.168.172.179:3000'), //options object is Optional
-    vuex: {
-      store,
-      actionPrefix: "SOCKET_",
-      mutationPrefix: "SOCKET_"
-    }
-  }))
-  .use(VueAxios, axios)
-  // .use(VuePeerJS, new Peer(undefined, {
-  //   host: "192.168.172.179",
-  //   port: "3010",
-  // }))
-  .use(router)
-  .mount("#app");
+const app = createApp(App);
+app.use(store)
+app.use(new VueSocketIO({
+  debug: true,
+  connection: socketio('http://192.168.1.201:3000'), //options object is Optional
+  vuex: {
+    store,
+    actionPrefix: "SOCKET_",
+    mutationPrefix: "SOCKET_"
+  }
+}))
+app.use(VueAxios, axios)
+// app.use(VuePeerJS, new Peer(undefined, {
+//   host: "192.168.1.201",
+//   port: "3010",
+//   config: {
+//     'iceServers': [
+//       { url: 'stun:stun01.sipphone.com' },
+//       { url: 'stun:stun.ekiga.net' },
+//       { url: 'stun:stun.fwdnet.net' },
+//       { url: 'stun:stun.ideasip.com' },
+//       { url: 'stun:stun.iptel.org' },
+//       { url: 'stun:stun.rixtelecom.se' },
+//       { url: 'stun:stun.schlund.de' },
+//       { url: 'stun:stun.l.google.com:19302' },
+//       { url: 'stun:stun1.l.google.com:19302' },
+//       { url: 'stun:stun2.l.google.com:19302' },
+//       { url: 'stun:stun3.l.google.com:19302' },
+//       { url: 'stun:stun4.l.google.com:19302' },
+//       { url: 'stun:stunserver.org' },
+//       { url: 'stun:stun.softjoys.com' },
+//       { url: 'stun:stun.voiparound.com' },
+//       { url: 'stun:stun.voipbuster.com' },
+//       { url: 'stun:stun.voipstunt.com' },
+//       { url: 'stun:stun.voxgratia.org' },
+//       { url: 'stun:stun.xten.com' }
+//     ]
+//   }
+// }))
+app.use(router)
+app.mount("#app");
 
 
+// app.config.globalProperties.$peer = new Peer(undefined, {
+//   host: "192.168.1.201",
+//   port: "3010",
+// });
+
+console.log("config app", app.config)
