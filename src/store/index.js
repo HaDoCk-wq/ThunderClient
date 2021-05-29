@@ -17,7 +17,7 @@ export default createStore({
       image: "default.png"
     },
     friendsPetitons: [],
-    inCall: true,
+    inCall: false,
     micMuted: false
   },
   getters: {

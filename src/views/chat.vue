@@ -46,90 +46,6 @@
             style="flex-direction: column; overflow: auto"
         >
             <div
-                v-if="$store.getters['inCall']"
-                class="position-absolute d-flex h-100 w-100 main-call"
-                style="flex-direction: column"
-            >
-                <div
-                    v-for="(stream, i) in streams"
-                    v-bind:key="i"
-                    class="video-grid p-3"
-                >
-                    <video
-                        :srcObject.prop="stream"
-                        autoplay
-                        class="video"
-                    ></video>
-                </div>
-                <button @click="peer()">peer</button>
-                <div class="flex-fill"></div>
-                <div
-                    class="w-100 wrapper-input p-1 d-flex"
-                    style="flex-direction: row !important"
-                >
-                    <div class="flex-fill"></div>
-
-                    <div
-                        v-if="$store.getters['micMuted']"
-                        class="rounded-circle me-5 microphone microphone-muted"
-                        @click="$store.commit('toggleMicMuted')"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            fill="currentColor"
-                            class="bi bi-mic-mute-fill"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                d="M13 8c0 .564-.094 1.107-.266 1.613l-.814-.814A4.02 4.02 0 0 0 12 8V7a.5.5 0 0 1 1 0v1zm-5 4c.818 0 1.578-.245 2.212-.667l.718.719a4.973 4.973 0 0 1-2.43.923V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 1 0v1a4 4 0 0 0 4 4zm3-9v4.879L5.158 2.037A3.001 3.001 0 0 1 11 3z"
-                            />
-                            <path
-                                d="M9.486 10.607 5 6.12V8a3 3 0 0 0 4.486 2.607zm-7.84-9.253 12 12 .708-.708-12-12-.708.708z"
-                            />
-                        </svg>
-                    </div>
-                    <div
-                        v-else
-                        class="rounded-circle me-5 microphone"
-                        @click="$store.commit('toggleMicMuted')"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            fill="currentColor"
-                            class="bi bi-mic-fill"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-                            <path
-                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"
-                            />
-                        </svg>
-                    </div>
-                    <div class="rounded-circle penjar">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            fill="currentColor"
-                            class="bi bi-telephone-x-fill"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zm9.261 1.135a.5.5 0 0 1 .708 0L13 2.793l1.146-1.147a.5.5 0 0 1 .708.708L13.707 3.5l1.147 1.146a.5.5 0 0 1-.708.708L13 4.207l-1.146 1.147a.5.5 0 0 1-.708-.708L12.293 3.5l-1.147-1.146a.5.5 0 0 1 0-.708z"
-                            />
-                        </svg>
-
-                        <div class="flex-fill"></div>
-                    </div>
-                    <div class="flex-fill"></div>
-                </div>
-            </div>
-            <div
                 class="p-2 d-flex top-bar"
                 :class="!$store.getters['inCall'] ? 'sticky-top' : ''"
             >
@@ -157,7 +73,12 @@
 
                 <div class="flex-fill"></div>
                 <div class="p-2">
-                    <div class="top-button">
+                    <div
+                        class="top-button"
+                        @click="
+                            $router.push('/channels/call/' + $route.params.id)
+                        "
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="22"
@@ -244,7 +165,7 @@
 
 <script>
 import moment from "moment";
-import Peer from "peerjs";
+//import Peer from "peerjs";
 
 export default {
     data: function () {
@@ -255,7 +176,7 @@ export default {
             chattingUser: {
                 image: "default.png",
             },
-            streams: [],
+            streams: {},
             newStream: null,
             typing: 0,
             peervue: null,
@@ -370,6 +291,7 @@ export default {
             }
         },
         formatMessageData(currentDate) {
+            //return currentDate;
             return moment(currentDate).startOf("minute").fromNow();
         },
         showTyping() {
@@ -377,65 +299,93 @@ export default {
             this.typing++;
             setTimeout(() => this.typing--, 500);
         },
-        peer() {},
+        peer() {
+            this.$store.commit("navigateTo", "chat");
+            //this.$store.commit("setNavbar", false);
+            this.$store.commit("setChatId", this.$route.params.id);
+            this.$store.commit("refreshUser");
+            this.populateMessages();
+
+            this.$socket.emit("join-room", "write" + this.chatId);
+            this.$socket.emit("listen-writing", "write" + this.chatId);
+
+            // if (this.chatId != "main") {
+            //     this.streams = {};
+            //     navigator.mediaDevices
+            //         .getUserMedia({
+            //             video: true,
+            //             //audio: true,
+            //         })
+            //         .then((stream) => {
+            //             this.streams["own"] = stream;
+            //             this.newStream = stream;
+
+            //             var peer = new Peer(
+            //                 undefined,
+            //                 this.$store.getters["peerObject"]
+            //             );
+
+            //             console.log("Peer:", peer, this.$peer);
+
+            //             peer.on("call", (call) => {
+            //                 call.answer(stream);
+            //                 call.on("stream", (userVideoStream) => {
+            //                     console.log("stream");
+            //                     this.streams["test"] = userVideoStream;
+            //                 });
+            //             });
+
+            //             this.sockets.subscribe("user-conected", (userId) => {
+            //                 console.log("user conected", userId);
+
+            //                 const call = peer.call(userId, stream);
+            //                 // peer.call(userId, stream).on(
+            //                 //     "stream",
+            //                 //     (userVideoStream) => {
+            //                 //         console.log("stream");
+            //                 //         this.streams[userId] = userVideoStream;
+            //                 //         console.log("moooolt stream");
+            //                 //     }
+            //                 // );
+
+            //                 // peer.call(userId, stream).on("close", () => {
+            //                 //     console.log("closed");
+            //                 // });
+
+            //                 call.on("stream", (userVideoStream) => {
+            //                     console.log("stream");
+            //                     this.streams[userId] = userVideoStream;
+            //                     console.log("moooolt stream");
+            //                 });
+
+            //                 call.on("close", () => {
+            //                     console.log("closed");
+            //                     //this.streams.delete(userId);
+            //                     delete this.streams[userId];
+            //                 });
+
+            //                 this.peers[userId] = call;
+            //             });
+
+            //             this.sockets.subscribe(
+            //                 "user-disconnected",
+            //                 (userId) => {
+            //                     console.log("disconected");
+            //                     if (this.peers[userId])
+            //                         this.peers[userId].close();
+            //                 }
+            //             );
+
+            //             peer.on("open", (id) => {
+            //                 console.log("open peer");
+            //                 this.$socket.emit("join-call", "call", id); //  + this.chatId
+            //             });
+            //         });
+            // }
+        },
     },
     mounted() {
         this.peer();
-        this.$store.commit("navigateTo", "chat");
-        //this.$store.commit("setNavbar", false);
-        this.$store.commit("setChatId", this.$route.params.id);
-        this.$store.commit("refreshUser");
-        this.populateMessages();
-
-        this.$socket.emit("join-room", "write" + this.chatId);
-        this.$socket.emit("listen-writing", "write" + this.chatId);
-
-        navigator.mediaDevices
-            .getUserMedia({
-                video: true,
-                //audio: true,
-            })
-            .then((stream) => {
-                this.streams.push(stream);
-                this.newStream = stream;
-
-                var peer = new Peer(
-                    undefined,
-                    this.$store.getters["peerObject"]
-                );
-
-                console.log("Peer:", peer, this.$peer);
-
-                peer.on("call", (call) => {
-                    console.log("stream");
-                    call.answer(stream);
-                    call.on("stream", (userVideoStream) => {
-                        console.log("stream");
-                        this.streams.push(userVideoStream);
-                    });
-                });
-
-                this.sockets.subscribe("user-conected", (userId) => {
-                    console.log(userId);
-
-                    const call = peer.call(userId, stream);
-                    peer.call(userId, stream).on(
-                        "stream",
-                        (userVideoStream) => {
-                            console.log("stream");
-                            this.streams.push(userVideoStream);
-                            console.log("moooolt stream");
-                        }
-                    );
-
-                    this.peers[userId] = call;
-                });
-
-                peer.on("open", (id) => {
-                    console.log("open peer");
-                    this.$socket.emit("join-call", "call", id); //  + this.chatId
-                });
-            });
     },
     updated() {
         if (this.chatId != "main") {
@@ -461,7 +411,9 @@ export default {
             this.$socket.emit("leave-writing", "write" + oldUser);
             this.$socket.emit("listen-writing", "write" + this.chatId);
 
-            console.log(newUser, oldUser);
+            //this.peer();
+
+            console.log("new user", newUser, "old user", oldUser);
         },
     },
 };
@@ -469,14 +421,21 @@ export default {
 
 <style scoped>
 .video-grid {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fill, 520px);
-    grid-auto-rows: 400px;
+    grid-auto-rows: 400px; */
+
+    display: flex;
+    flex-wrap: wrap;
+    /* height: calc(100% - calc(var(--menu-nav-width) - 10px)); */
+    overflow: auto;
+    /* flex-flow: row;
+    flex-direction: row; */
 }
 
 video {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -563,5 +522,18 @@ input:focus {
     padding: 12px;
     padding-left: 13px;
     cursor: pointer;
+}
+
+.call-bar {
+    z-index: 510;
+    margin-left: calc(var(--side-nav-width) + var(--menu-nav-width));
+    width: calc(100% - calc(var(--side-nav-width) + var(--menu-nav-width)));
+}
+
+@media (max-width: 926px) {
+    .call-bar {
+        margin-left: 0;
+        width: 100%;
+    }
 }
 </style>

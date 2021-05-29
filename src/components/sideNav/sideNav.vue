@@ -12,20 +12,27 @@
                 <div class="col-8">
                     <strong>{{ $store.getters["user"].name }}</strong>
                     <br />
-                    <div>{{ $store.getters["user"].desc }}</div>
+                    <div class="toggeler-desc-id">
+                        <div class="desc-toggle">
+                            {{ $store.getters["user"].desc }}
+                        </div>
+                        <div class="id-toggle">
+                            {{ $store.getters["user"]._id }}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-2 d-flex p-1">
-                    <div class="mic p-1">
+                    <div class="mic p-1" @click="logout()">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="26"
                             height="26"
                             fill="currentColor"
-                            class="bi bi-gear-fill"
+                            class="bi bi-door-open-fill"
                             viewBox="0 0 16 16"
                         >
                             <path
-                                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"
+                                d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"
                             />
                         </svg>
                     </div>
@@ -87,6 +94,12 @@ export default {
             muted: false,
         };
     },
+    methods: {
+        logout() {
+            window.localStorage.removeItem("token");
+            this.$router.push("/login");
+        },
+    },
 };
 </script>
 
@@ -121,5 +134,22 @@ export default {
 
 .red-color {
     color: var(--bs-red);
+}
+
+.toggeler-desc-id:hover > .desc-toggle {
+    display: none;
+}
+
+.toggeler-desc-id:hover > .id-toggle {
+    display: unset;
+}
+
+.desc-toggle {
+    display: unset;
+}
+
+.id-toggle {
+    display: none;
+    font-size: 15px;
 }
 </style>

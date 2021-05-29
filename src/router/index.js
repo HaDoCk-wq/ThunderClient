@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
-  { path: '/', redirect: '/channels/' },
+  { path: '/', redirect: '/channels/chat/main' },
   {
     path: "/channels/",
     name: "Chanels",
@@ -17,6 +17,11 @@ const routes = [
         path: 'friends',
         component: () =>
           import("../views/friends.vue"),
+      },
+      {
+        path: 'call/:id',
+        component: () =>
+          import("../components/call.vue"),
       }
     ],
     meta: { requiresAuth: true },

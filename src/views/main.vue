@@ -1,14 +1,16 @@
 <template>
-    <div class="menu-wraper" :class="{ open: navbarOpened }">
-        <MenuNav />
-        <SideNav />
-    </div>
-    <main class="main-content">
-        <div class="w-100 h-100">
-            <router-view />
+    <div>
+        <div class="menu-wraper" :class="{ open: navbarOpened }">
+            <MenuNav />
+            <SideNav />
         </div>
-    </main>
-    <ButtonOpenNav />
+        <main class="main-content">
+            <div class="w-100 h-100">
+                <router-view />
+            </div>
+        </main>
+        <ButtonOpenNav />
+    </div>
 </template>
 
 <script>

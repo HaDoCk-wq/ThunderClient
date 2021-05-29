@@ -5,5 +5,10 @@
 </template>
 
 <script>
-export default {};
+export default {
+    mounted() {
+        //window.localStorage.removeItem("token");
+        this.$router.push("/channels/chat/main");
+    },
+};
 </script>
