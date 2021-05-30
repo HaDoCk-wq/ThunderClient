@@ -22,6 +22,26 @@ const routes = [
         path: 'call/:id',
         component: () =>
           import("../components/call.vue"),
+      },
+      {
+        path: 'groups',
+        component: () =>
+          import("../views/groups.vue"),
+      },
+      {
+        path: 'groups/call/:id',
+        component: () =>
+          import("../views/groupsCall.vue"),
+      },
+      {
+        path: 'groups/chat/:id',
+        component: () =>
+          import("../views/groupsChat.vue"),
+      },
+      {
+        path: 'add/groups',
+        component: () =>
+          import("../views/addGroups.vue"),
       }
     ],
     meta: { requiresAuth: true },

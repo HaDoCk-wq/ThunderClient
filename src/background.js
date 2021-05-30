@@ -22,6 +22,7 @@ async function createWindow() {
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     },
+    icon: '/public/icon.png'
     //frame: false
   })
 

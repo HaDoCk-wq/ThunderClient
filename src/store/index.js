@@ -18,7 +18,9 @@ export default createStore({
     },
     friendsPetitons: [],
     inCall: false,
-    micMuted: false
+    micMuted: false,
+    userInCall: false,
+    currentGroup: { name: "", desc: "" }
   },
   getters: {
     navbarState: (state) => {
@@ -48,8 +50,14 @@ export default createStore({
     inCall: (state) => {
       return state.inCall;
     },
+    userInCall: (state) => {
+      return state.userInCall;
+    },
     micMuted: (state) => {
       return state.micMuted;
+    },
+    currentGroup: (state) => {
+      return state.currentGroup;
     },
   },
   mutations: {
@@ -68,6 +76,9 @@ export default createStore({
     setUser(state, user) {
       state.user = user;
     },
+    userEnterCall(state) {
+      state.userInCall = true;
+    },
     setCall(state, boolean) {
       state.inCall = boolean;
     },
@@ -76,6 +87,9 @@ export default createStore({
     },
     toggleMicMuted(state) {
       state.micMuted = !state.micMuted;
+    },
+    currentGroup(state, currentGroup) {
+      state.currentGroup = currentGroup;
     },
     refreshUser(state) {
       console.log("refresh user")

@@ -76,7 +76,10 @@
             v-bind:class="[
                 $store.getters.navigation == 'groups' ? 'selected' : '',
             ]"
-            @click="$store.commit('navigateTo', 'groups')"
+            @click="
+                $store.commit('navigateTo', 'groups');
+                $router.push('/channels/groups');
+            "
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +127,10 @@
             v-bind:class="[
                 $store.getters.navigation == 'add' ? 'selected' : '',
             ]"
-            @click="$store.commit('navigateTo', 'add')"
+            @click="
+                $store.commit('navigateTo', 'add');
+                $router.push('/channels/add/groups');
+            "
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

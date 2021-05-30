@@ -76,7 +76,15 @@
                     <div
                         class="top-button"
                         @click="
-                            $router.push('/channels/call/' + $route.params.id)
+                            $socket.emit(
+                                'call',
+                                chattingUser._id,
+                                $route.params.id,
+                                $store.getters['user'].image,
+                                $store.getters['user'].name
+                            );
+                            $store.commit('userEnterCall');
+                            $router.push('/channels/call/' + $route.params.id);
                         "
                     >
                         <svg
@@ -156,7 +164,7 @@
                             )
                         "
                     />
-                    <button type="submit" class="btn btn-primary">envia</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
                 </form>
             </div>
         </div>
@@ -231,7 +239,7 @@ export default {
             if (this.message != "") {
                 this.$socket.emit(
                     "message",
-                    this.chatId,
+                    this.$route.params.id,
                     this.message,
                     this.$store.getters["user"]
                 );
@@ -240,7 +248,7 @@ export default {
                     .post(
                         this.$store.getters["api"] +
                             "/messages/add/" +
-                            this.chatId,
+                            this.$route.params.id,
                         {
                             message: this.message,
                         },
@@ -306,8 +314,11 @@ export default {
             this.$store.commit("refreshUser");
             this.populateMessages();
 
-            this.$socket.emit("join-room", "write" + this.chatId);
-            this.$socket.emit("listen-writing", "write" + this.chatId);
+            this.$socket.emit("join-room", this.$route.params.id);
+            this.$socket.emit(
+                "listen-writing",
+                "write" + this.$route.params.id
+            );
 
             // if (this.chatId != "main") {
             //     this.streams = {};

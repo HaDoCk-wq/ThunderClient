@@ -2,6 +2,8 @@
     <div>
         <br />
         <h1 class="ms-3">Chat</h1>
+        <p class="ms-3 text-muted">Select a user to chat</p>
+
         <div
             v-for="(channel, i) in $store.getters['user'].channels"
             v-bind:key="i"
