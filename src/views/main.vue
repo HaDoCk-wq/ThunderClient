@@ -95,7 +95,7 @@
             autoplay
             loop
         ></audio>
-        <div v-if="!cookiesAceptades()" class="fixed-bottom p-4 w-100 cookies">
+        <div v-if="!cookie" class="fixed-bottom p-4 w-100 cookies">
             <div
                 class="d-flex p-3 rounded shadow"
                 style="background-color: var(--light-dark-bg); color: white"
@@ -130,6 +130,11 @@ export default {
             roomToJoin: "",
             callerName: "",
             callerImg: "",
+            cookie:
+                localStorage.getItem("cookieAccepted") == "true" ||
+                localStorage.getItem("cookieAccepted") != null
+                    ? true
+                    : false,
         };
     },
     computed: {
@@ -165,10 +170,11 @@ export default {
             this.$router.push("/channels/call/" + this.roomToJoin);
         },
         cookiesAceptades() {
-            return !localStorage.getItem("cookieAccepted") === null;
+            return localStorage.getItem("cookieAccepted");
         },
         aceptarCookies() {
-            localStorage.cookieAccepted == true;
+            localStorage.setItem("cookieAccepted", "true");
+            this.cookie = true;
         },
     },
     mounted() {
