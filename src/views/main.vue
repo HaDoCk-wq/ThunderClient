@@ -103,7 +103,10 @@
                 <div class="flex-fill me-4">
                     In thunder we use cookies to manage your session. If you
                     have any question you can see our
-                    <a href="">cookies policy</a>
+                    <a
+                        href="https://github.com/HaDoCk-wq/ThunderClient/blob/main/Cookie-Policy.md"
+                        >cookies policy</a
+                    >
                 </div>
                 <button @click="aceptarCookies()" class="btn btn-primary">
                     Agree
