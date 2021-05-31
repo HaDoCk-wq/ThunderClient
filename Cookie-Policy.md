@@ -32,22 +32,8 @@ In addition, people and companies that use our services to publish or host their
 
 #### **Required**
 
-| Cookie                      | Purpose                                                                                                                                                               |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| \_\_ssid                    | For processing payment and to aid in fraud detection.                                                                                                                 |
-| **stripe_sid / **stripe_mid | For processing payment and to aid in fraud detection.                                                                                                                 |
-| \_longreads_prod_new        | Authentication for Longreads.com Member accounts. Only active when logged in, on \*.longreads.com domains.                                                            |
-| akm_mobile                  | Stores whether a user has chosen to view the mobile version of a website.                                                                                             |
-| botdlang                    | Used to track the language a user has selected to view popular blogs in.                                                                                              |
-| country_code                | Used in order to determine whether or not the cookie banner should be shown. Set immediately on page load and retained for 6 hours to remember the visitor's country. |
-| csrftoken                   | Python/Ajax security cookie used on accounts.longreads.com.                                                                                                           |
-| forterToken                 | For processing payment and to aid in fraud detection.                                                                                                                 |
-| landingpage_currency        | Defines the currency displayed in WordPress.com landing pages.                                                                                                        |
-| pd_dashboard                | Records last used folder in Polldaddy dashboard so it can be reopened upon user’s next visit.                                                                         |
-| PD_USER_AUTH                | Login cookie used to identify Polldaddy user.                                                                                                                         |
-| sensitive_pixel_option      | Remembers the state of visitor acceptance to the cookie banner. Only set when the visitor clicks Accept.                                                              |
-| twostep_auth                | Set when the user is logged in using two factor authentication.                                                                                                       |
-| wordpress_logged_in\*       | Checks whether or not the current visitor is a logged in WordPress.com user.                                                                                          |
-| wordpress_test_cookie       | Checks if cookies are enabled to provide appropriate user experience.                                                                                                 |
-| wp-settings-{user_id}       | Persists a user’s wp-admin configuration.                                                                                                                             |
-| wp*sharing*{id}             | Tracks whether or not a user has already performed an action.                                                                                                         |
+| Cookie      | Purpose                                  |
+| ----------- | ---------------------------------------- |
+| \_\_Session | For managin the user session on the web. |
+| detection.  |
+

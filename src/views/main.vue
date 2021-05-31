@@ -173,8 +173,6 @@ export default {
     },
     mounted() {
         this.$store.commit("refreshUser");
-        console.error(this.cookiesAceptades());
-        console.log("listening");
     },
     watch: {
         userLoaded(newUser, oldUser) {
