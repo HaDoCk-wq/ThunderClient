@@ -28,7 +28,7 @@ const app = createApp(App);
 app.use(store)
 app.use(new VueSocketIO({
   debug: true,
-  connection: socketio('http://192.168.1.201:3000'), //options object is Optional
+  connection: socketio('http://localhost:3000'), //options object is Optional
   vuex: {
     store,
     actionPrefix: "SOCKET_",

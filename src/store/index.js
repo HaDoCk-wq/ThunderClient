@@ -8,9 +8,9 @@ export default createStore({
     navigationSelected: "chat",
     lastChatId: "main",
     chattingUser: {},
-    mainApiUrl: "http://192.168.1.201:3000",
+    mainApiUrl: "http://localhost:3000",
     peerObject: {
-      host: "192.168.1.201",
+      host: "localhost",
       port: "3010",
     },
     user: {
