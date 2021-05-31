@@ -4,9 +4,8 @@
             class="main-call h-100 w-100 video-grid"
             id="Dish"
             style="overflow: auto"
-        >
-            <div ref="videoGrid"></div>
-        </div>
+            ref="videoGrid"
+        ></div>
         <div
             class="wrapper-input p-1 d-flex fixed-bottom call-bar"
             style="flex-direction: row !important"
@@ -53,6 +52,23 @@
                     />
                 </svg>
             </div>
+            <!-- <div class="rounded-circle me-5" @click="peerScreen">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    class="bi bi-cast"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="m7.646 9.354-3.792 3.792a.5.5 0 0 0 .353.854h7.586a.5.5 0 0 0 .354-.854L8.354 9.354a.5.5 0 0 0-.708 0z"
+                    />
+                    <path
+                        d="M11.414 11H14.5a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5h-13a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h3.086l-1 1H1.5A1.5 1.5 0 0 1 0 10.5v-7A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v7a1.5 1.5 0 0 1-1.5 1.5h-2.086l-1-1z"
+                    />
+                </svg>
+            </div> -->
             <div
                 class="rounded-circle penjar"
                 @click="$router.push('/channels/chat/main')"
@@ -167,6 +183,7 @@ export default {
                     this.addVideoStream(myVideo, stream);
 
                     this.tempPeer = peer;
+                    console.warn("new peer");
 
                     console.log("Peer:", peer, this.$peer);
 
@@ -174,8 +191,14 @@ export default {
                         call.answer(stream);
                         const video = document.createElement("video");
                         call.on("stream", (userVideoStream) => {
-                            console.log("stream");
+                            console.warn("adding peer stream", call.peer);
+
                             this.addVideoStream(video, userVideoStream);
+                            this.peers[call.peer] = call;
+                        });
+                        call.on("close", () => {
+                            console.error("removing stream");
+                            video.remove();
                         });
                     });
 
@@ -184,14 +207,15 @@ export default {
                     });
 
                     this.sockets.subscribe("user-disconnected", (userId) => {
-                        console.log("disconected");
+                        console.warn("disconected");
+                        console.error("removing peer", userId);
+
                         if (this.peers[userId]) this.peers[userId].close();
                     });
 
                     this.sockets.subscribe("leaved-call", (userId) => {
-                        console.log("disconected");
+                        console.warn("disconected");
                         if (this.peers[userId]) this.peers[userId].close();
-                        delete this.streams[userId];
                         //location.reload();
                     });
 
@@ -223,10 +247,75 @@ export default {
                 this.addVideoStream(video, userVideoStream);
             });
             call.on("close", () => {
+                console.warn("conection lost");
                 video.remove();
             });
-
+            console.error("peer", userId);
             this.peers[userId] = call;
+        },
+        peerScreen() {
+            this.streams = {};
+            navigator.mediaDevices
+                .getDisplayMedia({
+                    video: true,
+                    audio: true,
+                })
+                .then((stream) => {
+                    //this.$refs["videoGrid"]
+
+                    const myVideo = document.createElement("video");
+                    myVideo.muted = true;
+
+                    this.addVideoStream(myVideo, stream);
+                    console.warn("new peer");
+
+                    console.log("Peer:", this.tempPeer);
+
+                    this.tempPeer.on("call", (call) => {
+                        call.answer(stream);
+                        const video = document.createElement("video");
+                        call.on("stream", (userVideoStream) => {
+                            console.warn("adding peer stream", call.peer);
+
+                            this.addVideoStream(video, userVideoStream);
+                            this.peers["cast" + call.peer] = call;
+                        });
+                        call.on("close", () => {
+                            console.error("removing stream");
+                            video.remove();
+                        });
+                    });
+
+                    this.sockets.subscribe("user-conected", (userId) => {
+                        this.connectToNewUser("cast" + userId, stream);
+                    });
+
+                    this.sockets.subscribe("user-disconnected", (userId) => {
+                        console.warn("disconected");
+                        console.error("removing peer", "cast" + userId);
+
+                        if (this.peers["cast" + userId])
+                            this.peers["cast" + userId].close();
+                    });
+
+                    this.sockets.subscribe("leaved-call", (userId) => {
+                        console.warn("disconected");
+                        if (this.peers["cast" + userId])
+                            this.peers["cast" + userId].close();
+                        //location.reload();
+                    });
+
+                    this.tempPeer.on("open", (id) => {
+                        console.log("open peer");
+                        this.$socket.emit(
+                            "join-call",
+                            "call" + this.$route.params.id,
+                            id
+                        ); //  + this.chatId
+                    });
+
+                    //this.tempStream = stream;
+                });
         },
     },
     mounted() {
@@ -242,6 +331,11 @@ export default {
             "call" + this.$route.params.id,
             this.userId
         );
+
+        //this.tempPeer.destroy();
+        //this.window.call.close();
+
+        console.log("temp peer disconect");
         // console.log(
         //     "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeemp peer",
         //     this.tempPeer
@@ -268,7 +362,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 /* .video-grid {
     /* display: grid;
     grid-template-columns: repeat(auto-fill, 520px);
@@ -395,7 +489,7 @@ input:focus {
     right: 0px;
 }
 /* Camera */
-#Dish video {
+video {
     position: relative;
     vertical-align: middle;
     align-self: center;
@@ -403,14 +497,15 @@ input:focus {
     display: inline-block;
     animation: show 0.4s ease;
     object-fit: cover;
-    border-radius: 10px;
+    margin: 4px;
+    border-radius: 15px !important;
 }
 
-#Dish div video {
-    /* box-shadow: 0px 12px 22px rgba(0, 0, 0, 0.4); */
+/* #Dish div video {
+    box-shadow: 0px 12px 22px rgba(0, 0, 0, 0.4);
     object-fit: cover;
     border-radius: 10px;
-}
+} */
 
 @keyframes show {
     0% {

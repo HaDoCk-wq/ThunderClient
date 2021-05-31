@@ -95,6 +95,21 @@
             autoplay
             loop
         ></audio>
+        <div v-if="!cookiesAceptades()" class="fixed-bottom p-4 w-100 cookies">
+            <div
+                class="d-flex p-3 rounded shadow"
+                style="background-color: var(--light-dark-bg); color: white"
+            >
+                <div class="flex-fill me-4">
+                    In thunder we use cookies to manage your session. If you
+                    have any question you can see our
+                    <a href="">cookies policy</a>
+                </div>
+                <button @click="aceptarCookies()" class="btn btn-primary">
+                    Agree
+                </button>
+            </div>
+        </div>
         <ButtonOpenNav />
     </div>
 </template>
@@ -146,9 +161,16 @@ export default {
             this.$store.commit("userEnterCall");
             this.$router.push("/channels/call/" + this.roomToJoin);
         },
+        cookiesAceptades() {
+            return !localStorage.getItem("cookieAccepted") === null;
+        },
+        aceptarCookies() {
+            localStorage.cookieAccepted == true;
+        },
     },
     mounted() {
         this.$store.commit("refreshUser");
+        console.error(this.cookiesAceptades());
         console.log("listening");
     },
     watch: {
@@ -170,6 +192,10 @@ export default {
     background-color: white;
     opacity: 0.1;
 } */
+
+.rounded {
+    border-radius: 6px !important;
+}
 
 .bounce-enter-active {
     animation: bounce-in 0.5s;
@@ -205,5 +231,10 @@ export default {
     background-color: var(--bs-green);
     padding: 15px;
     cursor: pointer;
+}
+
+.cookies {
+    position: fixed;
+    z-index: 10000;
 }
 </style>
