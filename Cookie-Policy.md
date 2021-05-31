@@ -23,17 +23,12 @@ The table below explains the types of cookies we use on our websites and why we 
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Required            | These cookies are essential for our websites and services to perform basic functions and are necessary for us to operate certain features. These include those required to allow registered users to authenticate and perform account-related functions, store preferences set by users such as account name, language, and location, and ensure our services are operating properly. |
 
-
 ### Examples
 
-Below are examples of the cookies set by Automattic, with explanations of their purpose. Some of these cookies are set across our whole network, whereas some are specific to individual services (e.g. WordPress.com, Longreads, etc). Please note that this is not an exhaustive list, but rather aims to be representative. Information about cookies that may be set by third parties, such as our ads partners, is below. Additionally, we occasionally set referrer cookies on Jetpack connected sites, using WooCommerce.
-
-In addition, people and companies that use our services to publish or host their own sites may place additional cookies. We provide more information on these cookies below.
+Below are examples of the cookies we use
 
 #### **Required**
 
 | Cookie      | Purpose                                  |
 | ----------- | ---------------------------------------- |
 | \_\_Session | For managin the user session on the web. |
-| detection.  |
-
